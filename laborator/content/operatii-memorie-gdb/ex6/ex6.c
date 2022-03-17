@@ -14,3 +14,8 @@ int main() {
 
 	return 0;
 }
+//a e stocat pe randul 1
+//b e stocat pe randul 3
+//c e stocat pe randul 3
+//int v pe randul 2
+//unsigned int pe restul
