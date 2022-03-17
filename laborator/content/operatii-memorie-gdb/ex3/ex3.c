@@ -4,6 +4,7 @@
 #include <assert.h>
 #include <time.h>
 #include "pixel.h"
+#define GET_PIXEL(a, i ,j) (*(*(a + i) + j))
 
 /*
 	TODO a
@@ -12,9 +13,6 @@
 	din structura lui Picture, astfel: Linia 1 devine linia n, linia 2 devine
 	linia n - 1, etc.
 */
-
-void reversePic(Picture *pic);
-
 /*
 	TODO b
 	Functia primeste ca parametru o imagine si intoarce noua imagine obtinuta
@@ -24,9 +22,6 @@ void reversePic(Picture *pic);
 	p.g = 0.59 * p.g;
 	p.b = 0.11 * p.b;
 */
-
-void colorToGray(Picture *pic);
-
 /*
 	Structura unui pixel, cea a unei imagini, precum si generarea acestora
 	sunt definite in pixel.h. Programul primeste de la tastatura inaltimea
@@ -37,12 +32,33 @@ void colorToGray(Picture *pic);
 	urmata de printPicture pentru a vedea daca se obtine rezultatul dorit.
 */
 
+void reversePic(Picture *pic){
+	for(int i = 0; i < pic->height / 2; ++i) {
+		for(int j = 0; j < pic->width; ++j) {
+			Pixel t = GET_PIXEL(pic->pix_array, i , j);
+			GET_PIXEL(pic->pix_array, i , j) = GET_PIXEL(pic->pix_array, pic->height - 1 - i , j);
+			GET_PIXEL(pic->pix_array, pic->height - 1 - i , j) = t;
+		}
+	}
+}
+void colorToGray(Picture *pic){
+	for(int i = 0; i < pic->height; ++i) {
+		for(int j = 0; j < pic->width; ++j) {
+			pic->pix_array[i][j].R = 0.3 * pic->pix_array[i][j].R;
+			pic->pix_array[i][j].G = 0.59 * pic->pix_array[i][j].G;
+			pic->pix_array[i][j].B = 0.11 * pic->pix_array[i][j].B;
+		}
+	}
+}
+
+
 int main() {
 	int height, width;
 	scanf("%d%d", &height, &width);
 	Pixel **pix_array = generatePixelArray(height, width);
 	Picture *pic = generatePicture(height, width, pix_array);
-
+	printPicture(pic);
+	reversePic(pic);
 	printPicture(pic);
 
 	freePicture(&pic);
