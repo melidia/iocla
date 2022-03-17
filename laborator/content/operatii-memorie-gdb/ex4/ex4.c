@@ -17,7 +17,18 @@
 
 void *find_max(void *arr, int n, int element_size, 
 				int (*compare)(const void *, const void *)) {
+
 	void *max_elem = arr;
+	for(int i = 0; i < n - 1; ++i) {
+		void *t;
+		if(compare((char *)arr + i * element_size, (char *)arr + (i + 1)* element_size) == 1) 
+			t = arr + i;
+		else
+			t = arr + i + 1;
+		
+		if(compare(max_elem, t) == 0)
+			max_elem = t;
+	}
 	return max_elem;
 }
 
@@ -29,7 +40,11 @@ void *find_max(void *arr, int n, int element_size,
 	mare decat cea de la adresa lui b, in caz contrar returneaza 0.
 */
 
-int compare(const void *a, const void *b);
+int compare(const void *a, const void *b) {
+	if( *(int*)(a) >= *(int*)(b))
+		return 1;
+	return 0;
+}
 
 /*
 	Se citeste de la tastatura un vector si se cere sa se afle
@@ -45,7 +60,8 @@ int main() {
 
 	for (int i = 0 ; i < n; ++i)
 		scanf("%d", &arr[i]);       
-
+	//printf("%d", (int)(find_max(arr, n, sizeof(int), compare())));
 	free(arr);
 	return 0;
 }
+
