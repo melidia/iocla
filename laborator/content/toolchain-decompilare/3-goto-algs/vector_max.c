@@ -6,10 +6,23 @@ int main(void)
 	int max;
 	int i;
 
-	/* TODO: Implement finding the maximum value in the vector */
+	int dim = sizeof(v)/sizeof(v[0]);
 	max = v[0];
 	i = 1;
 
-	(void) i;
-	(void) max;
+MAXIM:
+	if(v[i] >= max)
+		max = v[i];
+	i++;
+	goto COMPARE;
+
+COMPARE:
+	if(i < dim)
+		goto MAXIM;
+		
+
+	printf("%d", max);
+	printf("\n");
+
+	return 0;
 }
