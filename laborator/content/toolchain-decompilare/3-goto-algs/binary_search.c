@@ -7,6 +7,30 @@ int main(void)
 	int start = 0;
 	int end = sizeof(v) / sizeof(int) - 1;
 
+
+
+WHILEEE:
+	int m = start + (end - start)/2;
+	if(v[m] == dest)
+		return v[m];
+	else 
+		goto CONDITIONSS
+
+CONDITIONSS1:
+	if(v[m] < dest)
+		start = m + 1;
+	else
+		goto CONDITIONSS2
+
+CONDITIONSS2:
+	if(v[m] > dest)
+		end = m + 1;
+
+COMPARE:
+	if(start <= end)
+		goto WHILEEE
+
+
 	/* TODO: Implement binary search */
 	(void) dest;
 	(void) start;
