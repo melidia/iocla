@@ -13,6 +13,23 @@ toupper:
     mov ebp, esp
 
     ; TODO
+    mov eax, mystring
+    xor ecx, ecx
+
+test_one_byte:
+    mov bl, byte [eax]
+    test bl, bl
+    je over
+    cmp byte [eax], 0x61
+    js inc
+    sub byte [eax], 0x20
+
+inc:
+    inc eax
+    inc ecx
+    jmp test_one_byte
+
+over:
 
     leave
     ret
